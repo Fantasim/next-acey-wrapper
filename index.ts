@@ -1,0 +1,1 @@
+export { withAscey } from './wrap'
