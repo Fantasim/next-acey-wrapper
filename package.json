@@ -1,6 +1,6 @@
 {
   "name": "next-ascey-wrapper",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Wrapper to use Ascey with NextJS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,6 @@
   },
   "devDependencies": {
     "@types/jest": "^24.9.0",
-    "install-peers-cli": "^2.2.0",
     "jest": "^24.9.0",
     "ts-jest": "^24.3.0",
     "typescript": "^3.7.5",
