@@ -7,14 +7,11 @@ export const withAscey = (STORE, App) => {
 
     return class Wrap extends React.Component {
         
-        newProps = {}
-
         constructor(props){
             super(props)
             
-            this.isServer() && STORE.clearModels()
+            this.isServer() && process.env.NODE_ENV === 'development' && STORE.clearModels()
             !this.isServer() && STORE.addPendingHydration(props.pageProps[STORE_KEY]) 
-            this.initClearedProps()
         }
 
         static getInitialProps = async ({ Component, router, ctx }) => {
@@ -37,20 +34,19 @@ export const withAscey = (STORE, App) => {
         }
 
         isServer = () => typeof window === 'undefined'
-        getClearedProps = () => this.newProps
-
-        initClearedProps = () => {
-            this.newProps = {}
+        getClearedProps = () => {
+            let newProps = {}
             for (let key in this.props){
                 if (key === 'pageProps'){
                     const copy = _.cloneDeep(this.props[key])
                     delete copy[STORE_KEY]
                     copy['isServer'] = this.isServer()
-                    this.newProps[key] = copy
+                    newProps[key] = copy
                 } else {
-                    this.newProps[key] = this.props[key]
+                    newProps[key] = this.props[key]
                 }
             }
+            return newProps
         }
 
         render = () => <App {...this.getClearedProps()} />
