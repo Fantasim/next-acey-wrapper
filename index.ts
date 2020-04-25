@@ -1,1 +1,1 @@
-export { withAscey } from './wrap'
+export { withAcey } from './wrap'

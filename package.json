@@ -1,5 +1,5 @@
 {
-  "name": "next-ascey-wrapper",
+  "name": "next-acey-wrapper",
   "version": "1.0.0",
   "description": "Wrapper to use Ascey with NextJS",
   "main": "dist/index.js",
@@ -13,12 +13,14 @@
   "dependencies": {
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.13.0",
+    "acey": "/Users/louis/tuto/react-working",
     "lodash": "^4.17.15"
   },
   "peerDependencies": {
+    "acey": "/Users/louis/tuto/react-working",
     "next": "9.3.4",
     "react": "^16.13.1",
-    "react-ascey": "^1.2.0"
+    "es-cookie": "^1.3.2"
   },
   "devDependencies": {
     "@types/jest": "^24.9.0",
