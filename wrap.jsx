@@ -1,7 +1,8 @@
 import React from 'react'
 import _ from 'lodash'
 import * as Cookies from 'es-cookie'
-const STORE_KEY = '_asceyStore'
+
+const STORE_KEY = '_aceyStore'
 
 export const withAcey = (STORE, App) => {
 
@@ -19,7 +20,9 @@ export const withAcey = (STORE, App) => {
             if (!ctx) throw new Error('No page context');
             const prevInitialPropsFunction = Component.getInitialProps
   
-            STORE.hydrateCookies(Cookies.parse(ctx.req.headers.cookie))
+            if (ctx.req && ctx.req.headers && ctx.req.headers.cookie) {
+                STORE.hydrateCookies(Cookies.parse(ctx.req.headers.cookie))
+            }
             
             if (Component.getInitialProps)
                 pageProps = await Component.getInitialProps(ctx)
