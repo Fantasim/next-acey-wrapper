@@ -25,8 +25,10 @@ export const withAcey = (store, App) => {
             if (ctx.req && ctx.req.headers && ctx.req.headers.cookie) {
                 const cookies = {}
                 const gotCookies = Cookies.parse(ctx.req.headers.cookie)
-                for (let key in gotCookies)
-                    cookies[key] = JSON.parse(gotCookies[key])
+                for (let key in gotCookies){
+                    if (store.exist(key))
+                        cookies[key] = JSON.parse(gotCookies[key])
+                }
                 store.hydrateCookies(cookies)
             }
             
