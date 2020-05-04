@@ -1,12 +1,12 @@
 import React from 'react'
 import _ from 'lodash'
 import * as Cookies from 'es-cookie'
-import { config } from 'acey'
+import { config, store } from 'acey'
 
 const STORE_KEY = '_aceyStore'
 config.setEnvAsNextJS()
 
-export const withAcey = (store, App) => {
+export const withAcey = (App) => {
 
     return class Wrap extends React.Component {
         
