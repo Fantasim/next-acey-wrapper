@@ -1,17 +1,19 @@
 import React from 'react'
 import _ from 'lodash'
 import * as Cookies from 'es-cookie'
+import { config } from 'acey'
 
 const STORE_KEY = '_aceyStore'
+config.setEnvAsNextJS()
 
-export const withAcey = (STORE, App) => {
+export const withAcey = (store, App) => {
 
     return class Wrap extends React.Component {
         
         constructor(props){
             super(props)
             
-            !this.isServer() && STORE.addPendingHydration(props.pageProps[STORE_KEY]) 
+            !this.isServer() && store.addPendingHydration(props.pageProps[STORE_KEY]) 
         }
   
         static getInitialProps = async ({ Component, router, ctx }) => {
@@ -21,7 +23,11 @@ export const withAcey = (STORE, App) => {
             const prevInitialPropsFunction = Component.getInitialProps
   
             if (ctx.req && ctx.req.headers && ctx.req.headers.cookie) {
-                STORE.hydrateCookies(Cookies.parse(ctx.req.headers.cookie))
+                const cookies = {}
+                const gotCookies = Cookies.parse(ctx.req.headers.cookie)
+                for (let key in gotCookies)
+                    cookies[key] = JSON.parse(gotCookies[key])
+                store.hydrateCookies(cookies)
             }
             
             if (Component.getInitialProps)
@@ -33,11 +39,12 @@ export const withAcey = (STORE, App) => {
             const ret = { 
                 pageProps: { ...pageProps }
             }
-            ret.pageProps[STORE_KEY] = STORE.store()
+            ret.pageProps[STORE_KEY] = store.store()
             return ret
         }
   
         isServer = () => typeof window === 'undefined'
+        
         getClearedProps = () => {
             let newProps = {}
             for (let key in this.props){
@@ -55,4 +62,4 @@ export const withAcey = (STORE, App) => {
   
         render = () => <App {...this.getClearedProps()} />
     }
-  }
+}
