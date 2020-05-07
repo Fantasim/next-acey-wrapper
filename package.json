@@ -1,6 +1,6 @@
 {
   "name": "next-acey-wrapper",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Wrapper to use Asey with NextJS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,6 +17,7 @@
   "dependencies": {
     "@types/lodash": "^4.14.149",
     "@types/node": "^13.13.0",
+    "acey": "^1.0.3",
     "lodash": "^4.17.15"
   },
   "peerDependencies": {
