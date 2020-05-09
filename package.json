@@ -21,7 +21,7 @@
     "lodash": "^4.17.15"
   },
   "peerDependencies": {
-    "acey": "^1.0.2",
+    "acey": "^1.0.4",
     "es-cookie": "^1.3.2",
     "next": "9.3.4",
     "react": "^16.13.1"
