@@ -42,8 +42,8 @@ import { useAcey, Model } from 'acey'
 
 //declare a Counter Model
 class CounterModel extends Model {
-    constructor(data, options){
-        super(data, options)
+    constructor(initialState, options){
+        super(initialState, options)
     }
     
     get = () => this.state.counter
