@@ -13,7 +13,7 @@ export const withAcey = (App, Acey) => {
           
           constructor(props){
               super(props)
-              !this.isServer() && manager.addPendingHydration(props.pageProps[STORE_KEY]) 
+              !this.isServer() && manager.pendingHydrationStore().set(props.pageProps[STORE_KEY])
           }
     
           static getInitialProps = async ({ Component, router, ctx }) => {
@@ -26,10 +26,10 @@ export const withAcey = (App, Acey) => {
                   const cookies = {}
                   const gotCookies = Cookies.parse(ctx.req.headers.cookie)
                   for (let key in gotCookies){
-                      if (manager.exist(key))
+                      if (manager.models().exist(key))
                           cookies[key] = JSON.parse(gotCookies[key])
                   }
-                  manager.hydrateCookies(cookies)
+                  manager.models().hydrateWithCookies(cookies)
               }
               
               if (Component.getInitialProps)
@@ -41,7 +41,7 @@ export const withAcey = (App, Acey) => {
               const ret = { 
                   pageProps: { ...pageProps }
               }
-              ret.pageProps[STORE_KEY] = manager.store()
+              ret.pageProps[STORE_KEY] = manager.store().get()
               return ret
           }
     

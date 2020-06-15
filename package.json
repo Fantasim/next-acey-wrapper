@@ -1,6 +1,6 @@
 {
   "name": "next-acey-wrapper",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Wrapper to use Asey with NextJS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
