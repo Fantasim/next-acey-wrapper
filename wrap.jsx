@@ -1,9 +1,8 @@
 import React from 'react'
 import _ from 'lodash'
-import * as Cookies from 'es-cookie'
+import { manager, config } from 'acey'
 
-export const withAcey = (App, Acey) => {
-    const { manager, config } = Acey
+export const withAcey = (App) => {
     
     config.setEnvAsNextJS()
     config.done()
@@ -13,36 +12,31 @@ export const withAcey = (App, Acey) => {
           
           constructor(props){
               super(props)
-              !this.isServer() && manager.pendingHydrationStore().set(props.pageProps[STORE_KEY])
+              if (!this.isServer()){
+                const store = props.pageProps[STORE_KEY]
+                for (const key in store)
+                  _.isEqual(manager.models().node(key).to().plain(), store[key]) && delete store[key]
+                manager.pendingHydrationStore().set(store)
+              } 
           }
     
           static getInitialProps = async ({ Component, router, ctx }) => {
-              let pageProps = {}
-    
-              if (!ctx) throw new Error('No page context');
-              const prevInitialPropsFunction = Component.getInitialProps
-      
-              if (ctx.req && ctx.req.headers && ctx.req.headers.cookie) {
-                  const cookies = {}
-                  const gotCookies = Cookies.parse(ctx.req.headers.cookie)
-                  for (let key in gotCookies){
-                      if (manager.models().exist(key))
-                          cookies[key] = JSON.parse(gotCookies[key])
-                  }
-                  manager.models().hydrateWithCookies(cookies)
-              }
-              
-              if (Component.getInitialProps)
-                  pageProps = await Component.getInitialProps(ctx)
-              
-              Component.getInitialProps = (ctx) => pageProps
-              Component.getInitialProps = prevInitialPropsFunction
-    
-              const ret = { 
-                  pageProps: { ...pageProps }
-              }
-              ret.pageProps[STORE_KEY] = manager.store().get()
-              return ret
+            let pageProps = {}
+
+            if (!ctx) throw new Error('No page context');
+            const prevInitialPropsFunction = Component.getInitialProps
+                  
+            if (Component.getInitialProps)
+                pageProps = await Component.getInitialProps(ctx)
+            
+            Component.getInitialProps = (ctx) => pageProps
+            Component.getInitialProps = prevInitialPropsFunction
+  
+            const ret = { 
+                pageProps: { ...pageProps }
+            }
+            ret.pageProps[STORE_KEY] = manager.store().get()
+            return ret
           }
     
           isServer = () => typeof window === 'undefined'
@@ -61,7 +55,6 @@ export const withAcey = (App, Acey) => {
               }
               return newProps
           }
-    
           render = () => <App {...this.getClearedProps()} />
       }
-  }
+}

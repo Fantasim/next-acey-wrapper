@@ -1,0 +1,1 @@
+export { withAcey } from './wrap.jsx'
