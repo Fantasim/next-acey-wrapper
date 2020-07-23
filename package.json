@@ -20,7 +20,7 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "acey": "^1.3.1",
+    "acey": "^1.3.4",
     "lodash": "^4.17.15",
     "react": "^16.13.1"
   },
