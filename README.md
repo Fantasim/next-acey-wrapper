@@ -24,6 +24,8 @@ export default withAcey(MyApp)
 
 <br />
 
+## Quickstart
+
 You can received your Model and Collection's state on the client side as it is on the server side.
 
 Example `./pages/index.js`: 
@@ -53,9 +55,3 @@ Home.getStaticProps = ({ query }) => {
   return {}
 }
 ```
-
-
-
-
-
-
