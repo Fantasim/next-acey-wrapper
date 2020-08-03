@@ -1,14 +1,8 @@
-<p align="center" font-style="italic" >
-  <a>
-    <img alt="acey" src="https://siasky.net/NABkHZBkDxMom-KpBakYkmkMbWQWVcViZ1Fd-DwIXgdqOg" width="100%">
-  </a>
-Wrapper for NextJS apps with Acey.
-</p>
-
+# NextJS Wrapper for Acey.
 
 ## Get started
 ```
-yarn add acey next-acey-wrapper
+yarn add next-acey-wrapper
 ```
 
 <br />
@@ -18,7 +12,6 @@ yarn add acey next-acey-wrapper
 
 ```js
 import React from 'react'
-import Acey from 'acey'
 import { withAcey } from 'next-acey-wrapper'
 
 const MyApp = props => {
@@ -26,15 +19,12 @@ const MyApp = props => {
   return <Component {...pageProps} />
 }
 
-export default withAcey(MyApp, Acey)
+export default withAcey(MyApp)
 ```
 
 <br />
 
-## Features:
-- You can now use Acey as you would use with a standard ReactJS app.
-- You can update and dispatch your Model's and Collection's state to the store directly through nextJS server methods like
-getInitialProps.
+You can received your Model and Collection's state on the client side as it is on the server side.
 
 Example `./pages/index.js`: 
 ```js
@@ -53,14 +43,14 @@ class CounterModel extends Model {
 const Counter = new CounterModel({counter: 0}, {connected: true, key: 'counter'})
 
 const Home = (props) => {
-  useAcey([Counter])
+  useAcey([ Counter ])
   
   return <h1>{Counter.get()}<h1> //display 10 on client side
 }
 
-Home.getInitialProps = ({ query }) => {
-  //Counter state updated on server side
-  Counter.setState({counter: 10}).save()
+Home.getStaticProps = ({ query }) => {
+  Counter.setState({counter: 10}).save() //Counter's state updated on server side
+  return {}
 }
 ```
 
