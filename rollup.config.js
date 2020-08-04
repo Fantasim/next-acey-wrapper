@@ -15,7 +15,6 @@ const config = {
                 'react': 'react',
                 'acey': 'acey',
                 '@babel/runtime/helpers/defineProperty': 'babelDefinePropertyHelpers'
-
             },
             file: pkg.main,
             format: 'umd',
