@@ -1,17 +1,17 @@
 import external from 'rollup-plugin-peer-deps-external'
 import url from '@rollup/plugin-url'
 import babel from "@rollup/plugin-babel";
-import { uglify } from 'rollup-plugin-uglify';
 
 import pkg from './package.json'
 
 const config = {
     input: './index.js',
-    external: [ 'acey', 'react', 'next', /@babel\/runtime/],
+    external: [ 'acey', 'react', 'next', /@babel\/runtime/, 'lodash/isEqual', 'lodash/cloneDeep'],
     output: [
         {
             globals: {
-                'lodash': 'lodash',
+                'lodash/isEqual': 'isEqual',
+                'lodash/cloneDeep': 'cloneDeep',
                 'react': 'react',
                 'acey': 'acey',
                 '@babel/runtime/helpers/defineProperty': 'babelDefinePropertyHelpers'
@@ -30,10 +30,6 @@ const config = {
             babelHelpers: 'runtime'
         }),
     ]
-}
-
-if (process.env.NODE_ENV === 'production') {
-    config.plugins.push(uglify());
 }
 
 export default config

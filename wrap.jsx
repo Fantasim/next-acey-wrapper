@@ -1,5 +1,7 @@
 import React from 'react'
-import _ from 'lodash'
+import isEqual from 'lodash/isEqual'
+import cloneDeep from 'lodash/cloneDeep'
+
 import { manager, config } from 'acey'
 
 export const withAcey = (App) => {
@@ -15,7 +17,7 @@ export const withAcey = (App) => {
               if (!this.isServer()){
                 const store = props.pageProps[STORE_KEY]
                 for (const key in store)
-                  _.isEqual(manager.models().node(key).to().plain(), store[key]) && delete store[key]
+                  isEqual(manager.models().node(key).to().plain(), store[key]) && delete store[key]
                 manager.pendingHydrationStore().set(store)
               } 
           }
@@ -45,7 +47,7 @@ export const withAcey = (App) => {
               let newProps = {}
               for (let key in this.props){
                   if (key === 'pageProps'){
-                      const copy = _.cloneDeep(this.props[key])
+                      const copy = cloneDeep(this.props[key])
                       delete copy[STORE_KEY]
                       copy['isServer'] = this.isServer()
                       newProps[key] = copy
