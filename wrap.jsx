@@ -14,14 +14,19 @@ export const withAcey = (App) => {
           
           constructor(props){
               super(props)
-              if (!this.isServer()){
-                const store = props.pageProps[STORE_KEY]
-                for (const key in store)
-                  isEqual(manager.models().node(key).to().plain(), store[key]) && delete store[key]
-                manager.pendingHydrationStore().set(store)
-              } 
+              this.init()
           }
-    
+
+          init = () => {
+            if (!this.isServer()){
+              const store = this.props.pageProps[STORE_KEY]
+              for (const key in store)
+                isEqual(manager.models().node(key).super().defaultState, store[key]) && delete store[key]
+              manager.pendingHydrationStore().set(store)
+              manager.isInitialized() && manager.pendingHydrationStore().execute()
+            }
+          }
+
           static getInitialProps = async ({ Component, router, ctx }) => {
             let pageProps = {}
 
