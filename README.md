@@ -1,8 +1,8 @@
 # NextJS Wrapper for Acey.
 
 ## Get started
-```
-yarn add next-acey-wrapper
+```sh
+yarn add next-acey-wrapper react-acey
 ```
 
 <br />
@@ -30,7 +30,8 @@ You can received your Model and Collection's state on the client side as it is o
 
 Example `./pages/index.js`: 
 ```js
-import { useAcey, Model } from 'acey'
+import { Model } from 'acey'
+import { useAcey } from 'react-acey'
 
 //declare a Counter Model
 class CounterModel extends Model {
