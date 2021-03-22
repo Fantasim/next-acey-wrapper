@@ -25,11 +25,11 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@babel/runtime": "^7.10.5",
-    "acey": "^1.4.3",
+    "acey": "^1.4.5",
     "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
-    "acey": "^1.4.1",
+    "acey": "^1.4.5",
     "react": "^16.13.1"
   },
   "devDependencies": {
