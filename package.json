@@ -14,10 +14,6 @@
   "files": [
     "dist/**"
   ],
-  "author": {
-    "name": "fantasim",
-    "email": "siuol@gmx.com"
-  },
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -29,7 +25,7 @@
     "lodash-es": "^4.17.15"
   },
   "peerDependencies": {
-    "acey": "^1.4.5",
+    "acey": "^1.4.7",
     "react": "^16.13.1"
   },
   "devDependencies": {
