@@ -23,7 +23,7 @@ export const withAcey = (App) => {
               for (const key in store)
                 isEqual(manager.models().node(key).super().defaultState, store[key]) && delete store[key]
               manager.pendingHydrationStore().set(store)
-              manager.isInitialized() && manager.pendingHydrationStore().execute()
+              manager.pendingHydrationStore().execute()
             }
           }
 
