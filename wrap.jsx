@@ -20,8 +20,10 @@ export const withAcey = (App) => {
           init = () => {
             if (!this.isServer()){
               const store = this.props.pageProps[STORE_KEY]
-              for (const key in store)
-                isEqual(manager.models().node(key).super().defaultState, store[key]) && delete store[key]
+              for (const key in store){
+                const node = manager.models().node(key)
+                node && isEqual(node.super().defaultState, store[key]) && delete store[key]
+              }
               manager.pendingHydrationStore().set(store)
               manager.pendingHydrationStore().execute()
             }
